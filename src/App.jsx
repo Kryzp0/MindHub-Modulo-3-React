@@ -3,6 +3,7 @@ import Cards from "./pages/Cards"
 import Accounts from "./pages/Accounts"
 import Loans from "./pages/Loans"
 import ApplyLoan from "./pages/ApplyLoan"
+import ApplyCard from "./pages/ApplyCard"
 
 function App() {
 
@@ -12,7 +13,8 @@ function App() {
       {/* <Accounts/> */}
       {/* <Cards/> */}
       {/* <Loans/> */}
-      <ApplyLoan/>
+      {/* <ApplyLoan/> */}
+      <ApplyCard/>
     </HeaderMain>
   )
 }

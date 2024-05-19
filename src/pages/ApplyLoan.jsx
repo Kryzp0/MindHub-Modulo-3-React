@@ -39,7 +39,7 @@ const ApplyLoan = () => {
     <>
       <Title title="Apply for a loan" />
       <section className='flex flex-col items-start gap-4 pt-[120px]'>
-        <form className="max-w-sm mx-auto" onSubmit={handleSubmit}>
+        <form className="flex flex-col gap-4 max-w-sm mx-auto" onSubmit={handleSubmit}>
           <label htmlFor="loanType" className="block mb-2 text-sm font-medium text-white">Loan type</label>
           <select id="loanType" value={loanType} onChange={handleLoanTypeChange} className="border border-gray-600 bg-gray-700 text-white text-sm rounded-lg block w-full p-2.5 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500">
             <option value="">- Select your loan -</option>
