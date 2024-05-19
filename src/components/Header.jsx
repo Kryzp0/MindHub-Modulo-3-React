@@ -1,21 +1,36 @@
 import React from 'react'
+import { HiUser } from "react-icons/hi";
+import { FaCreditCard } from "react-icons/fa";
+import { GoArrowSwitch } from "react-icons/go";
+import { GiTakeMyMoney, GiExitDoor } from "react-icons/gi";
 
 const Header = ({ headerOpen }) => {
     return (
-            <header className={"flex flex-col md:w-[300px] items-center justify-around bg-[#474747] fixed h-full z-20 transition-transform duration-300 ease-in-out" + (headerOpen ? "" : " -translate-x-full")}>
-                <div className="my-8 flex justify-center w-full">
-                    <img src="/logo.png" alt="Logo" className="w-2/5" />
-                </div>
-                <nav className="flex flex-col items-center w-full">
-                    <a href="#" className="text-2xl py-2 px-4 border border-black w-full text-center">Accounts</a>
-                    <a href="#" className="text-2xl py-2 px-4 border border-black w-full text-center">Cards</a>
-                    <a href="#" className="text-2xl py-2 px-4 border border-black w-full text-center">Transaction</a>
-                    <a href="#" className="text-2xl py-2 px-4 border border-black w-full text-center">Loan</a>
-                </nav>
-                <button className="bg-red-500 text-white py-4 mt-auto w-full text-xl">Log Out</button>
-            </header>
+        <header className={"flex flex-col h-full md:rounded-lg md:w-[300px] p-10 items-center justify-around bg-[#1f2937] fixed md:left-8 md:top-8 md:h-[90%] z-20 transition-transform duration-300 ease-in-out" + (headerOpen ? "" : " -translate-x-[600px]")}>
+            <div className="my-8 flex justify-center w-full">
+                <img src="/logo.png" alt="Logo" className="w-3/5" />
+            </div>
+            <nav className="flex flex-col items-center w-full gap-2 pt-2">
+                <a href="#" className="text-white text-2xl py-2 px-4 w-full mx-4 flex gap-4 hover:bg-[#374151] rounded-xl transition-all duration-300 items-center">
+                    <HiUser />Accounts</a>
+                <a href="#" className="text-white text-2xl py-2 px-4 w-full mx-4 flex gap-4 hover:bg-[#374151] rounded-xl transition-all duration-300 items-center">
+                    <FaCreditCard />Cards
+                </a>
+                <a href="#" className="text-white text-2xl py-2 px-4 w-full mx-4 flex gap-4 hover:bg-[#374151] rounded-xl transition-all duration-300 items-center">
+                    <GoArrowSwitch />Transaction
+                </a>
+                <a href="#" className="text-white text-2xl py-2 px-4 w-full mx-4 flex gap-4 hover:bg-[#374151] rounded-xl transition-all duration-300 items-center">
+                    <GiTakeMyMoney />Loan
+                </a>
 
-            
+            </nav>
+            <a href="#" className="text-white text-2xl mt-auto py-2 px-4 w-full mx-4 flex gap-4 hover:bg-[#374151] rounded-xl transition-all duration-300 items-center">
+                <GiExitDoor />Log Out
+            </a>
+        </header>
+
+
+
     )
 }
 

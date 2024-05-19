@@ -4,7 +4,7 @@ import React from 'react'
 const Main = ({ children, headerOpen }) => {
 
   return (
-    <main className={"flex flex-col min-h-screen bg-[#212121]" + (!headerOpen ? "" : " blur")}>
+    <main className={"flex flex-col min-h-screen bg-[#111827]" + (!headerOpen ? "" : " blur-sm")}>
       {children}
     </main>
   )
