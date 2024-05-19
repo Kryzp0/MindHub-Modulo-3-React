@@ -10,7 +10,7 @@ const Account = ({number,amount,creationDate}) => {
                 </div>
                 <div className='flex justify-between p-4'>
                     <p>Amount:</p>
-                    <p className='text-3xl font-bold'>{amount}</p>
+                    <p className='text-3xl font-extrabold'>${amount}</p>
                 </div>
                 <div className='flex justify-between p-4'>
                     <p>Creation Date:</p>
