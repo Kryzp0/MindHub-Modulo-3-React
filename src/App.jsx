@@ -7,8 +7,8 @@ function App() {
 
   return (
     <HeaderMain>
-      {/* <Accounts/> */}
-      <Cards/>
+      <Accounts/>
+      {/* <Cards/> */}
     </HeaderMain>
   )
 }
