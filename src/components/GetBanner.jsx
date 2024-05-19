@@ -1,6 +1,5 @@
 import React from 'react'
 import { Banner, Button } from "flowbite-react";
-import { HiX } from "react-icons/hi";
 
 const GetBanner = ({type,request}) => {
     return (
@@ -21,10 +20,7 @@ const GetBanner = ({type,request}) => {
                     </p>
                 </div>
                 <div className="flex shrink-0 items-center">
-                    <Button href="#">Get Account</Button>
-                    <Banner.CollapseButton color="gray" className="border-0 bg-transparent text-gray-400">
-                        <HiX className="h-4 w-4" />
-                    </Banner.CollapseButton>
+                    <Button href="#">{"Get "+type}</Button>
                 </div>
             </div>
         </Banner>
