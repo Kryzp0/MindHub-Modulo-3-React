@@ -3,7 +3,7 @@ import { HiUser } from "react-icons/hi";
 import { FaCreditCard } from "react-icons/fa";
 import { GoArrowSwitch } from "react-icons/go";
 import { GiTakeMyMoney, GiExitDoor } from "react-icons/gi";
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Header = ({ headerOpen }) => {
     return (
@@ -12,19 +12,17 @@ const Header = ({ headerOpen }) => {
                 <img src="/logo.png" alt="Logo" className="w-3/5" />
             </div>
             <nav className="flex flex-col items-center w-full gap-2 pt-2">
-                <Link to="/accounts" className="text-white text-2xl py-2 px-4 w-full mx-4 flex gap-4 hover:bg-[#374151] rounded-xl transition-all duration-300 items-center">
-                    <HiUser />Accounts</Link>
-                <Link to="/cards" className="text-white text-2xl py-2 px-4 w-full mx-4 flex gap-4 hover:bg-[#374151] rounded-xl transition-all duration-300 items-center">
-                    <FaCreditCard />Cards</Link>
-                <Link to="/" className="text-white text-2xl py-2 px-4 w-full mx-4 flex gap-4 hover:bg-[#374151] rounded-xl transition-all duration-300 items-center">
-                    <GoArrowSwitch />Transaction</Link>
-                <Link to="/loans" className="text-white text-2xl py-2 px-4 w-full mx-4 flex gap-4 hover:bg-[#374151] rounded-xl transition-all duration-300 items-center">
-                    <GiTakeMyMoney />Loan</Link>
-
+                <NavLink to="/accounts" className="text-white text-2xl py-2 px-4 w-full mx-4 flex gap-4 hover:bg-[#374151] rounded-xl transition-all duration-300 items-center">
+                    <HiUser />Accounts</NavLink>
+                <NavLink to="/cards" className="text-white text-2xl py-2 px-4 w-full mx-4 flex gap-4 hover:bg-[#374151] rounded-xl transition-all duration-300 items-center">
+                    <FaCreditCard />Cards</NavLink>
+                <NavLink to="/" className="text-white text-2xl py-2 px-4 w-full mx-4 flex gap-4 hover:bg-[#374151] rounded-xl transition-all duration-300 items-center">
+                    <GoArrowSwitch />Transaction</NavLink>
+                <NavLink to="/loans" className="text-white text-2xl py-2 px-4 w-full mx-4 flex gap-4 hover:bg-[#374151] rounded-xl transition-all duration-300 items-center">
+                    <GiTakeMyMoney />Loans</NavLink>
             </nav>
-            <a href="#" className="text-white text-2xl mt-auto py-2 px-4 w-full mx-4 flex gap-4 hover:bg-[#374151] rounded-xl transition-all duration-300 items-center">
-                <GiExitDoor />Log Out
-            </a>
+            <NavLink to="/" className="text-white text-2xl mt-auto py-2 px-4 w-full mx-4 flex gap-4 hover:bg-[#374151] rounded-xl transition-all duration-300 items-center">
+                <GiExitDoor />Log Out</NavLink>
         </header>
 
 

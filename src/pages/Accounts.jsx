@@ -1,19 +1,44 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Title from '../components/Title'
-import { Carousel} from "flowbite-react";
+import { Carousel } from "flowbite-react";
 import Account from '../components/Account';
 import GetBanner from '../components/GetBanner';
+import axios from 'axios';
 
 const Accounts = () => {
+    const [data, setData] = useState([]);
+
+    const getData = () => {
+        axios.get('http://localhost:8080/api/clients/4')
+            .then(response => {
+                console.log(response.data.accounts);
+                setData(response.data.accounts);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+    useEffect(() => {
+        getData();
+    }, [])
+
+
     return (
         <>
             <Title title="Welcome, Melba!" />
             <section className='flex flex-col items-center gap-4'>
                 <div className='flex flex-wrap gap-6 pt-[120px]'>
-                    <Account number={"VIN001"} amount={"250.000,00"} creationDate={"25/05/23"}/>
-                    <Account number={"VIN002"} amount={"200.000,00"} creationDate={"14/07/23"}/>
+                    {console.log(data)}
+                    {
+                        data.length > 0 ?
+                            (
+                                data.map(account =>
+                                    (<Account key={account.id} number={account.number} balance={account.balance} creationDate={account.reationDate} />))
+                            ) : (<p className='text-white text-lg'>No accounts available.</p>)
+                    }
                 </div>
-                <GetBanner type={"account"} request={"create"}/>
+                <GetBanner type={"account"} request={"create"} linkTo={"/accounts"} />
             </section>
             <div className="h-44 p-6">
                 <Carousel>
