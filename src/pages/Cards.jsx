@@ -19,7 +19,7 @@ const Cards = () => {
                         <Card color="GOLD" name="MELBA MOREL" number="1234 5678 9012 3456" validDate="2/14/2030" cvv={516}></Card>
                     </div>
                 </article>
-                <GetBanner className='mt-auto' type={"card"} request={"apply"} />
+                <GetBanner className='mt-auto' type={"card"} request={"apply"} linkTo={"card"} />
             </div>
         </>
     )

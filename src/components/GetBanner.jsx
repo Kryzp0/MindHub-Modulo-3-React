@@ -1,7 +1,8 @@
 import React from 'react'
 import { Banner, Button } from "flowbite-react";
+import { Link } from 'react-router-dom';
 
-const GetBanner = ({type,request}) => {
+const GetBanner = ({ type, request,linkTo }) => {
     return (
         <Banner className='flex justify-center py-6'>
             <div className="flex w-[90%] flex-col justify-between rounded-lg border p-4 shadow-sm border-gray-600 bg-gray-700 md:flex-row">
@@ -16,11 +17,13 @@ const GetBanner = ({type,request}) => {
                         </span>
                     </a>
                     <p className="flex items-center text-sm font-normal text-gray-400">
-                        {"Don't have an " +type+ " yet or need to "+request+" another one, don't worry, you can request your "+type+" here!"}
+                        {"Don't have an " + type + " yet or need to " + request + " another one, don't worry, you can request your " + type + " here!"}
                     </p>
                 </div>
                 <div className="flex shrink-0 items-center">
-                    <Button href="#">{"Get "+type}</Button>
+                    <Link to={"/apply-"+linkTo}>
+                        <Button href="#">{"Get " + type}</Button>
+                    </Link>
                 </div>
             </div>
         </Banner>
