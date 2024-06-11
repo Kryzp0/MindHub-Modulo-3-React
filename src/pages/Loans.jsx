@@ -29,7 +29,7 @@ const Loans = () => {
     <>
       <Title title="Your Loans" />
       <section className='flex flex-col items-center gap-4'>
-        <div className='flex flex-wrap gap-6 pt-[120px]'>
+        <div className='flex flex-wrap gap-6 pt-[120px] justify-center'>
           {
             data.length > 0 ?
               (

@@ -24,7 +24,6 @@ const Header = ({ headerOpen }) => {
                 <Links linkTo={"/loans"}>
                     <GiTakeMyMoney />Loans
                 </Links>
-
             </nav>
             <Links linkTo={"/"}>
                 <GiExitDoor />Log Out
