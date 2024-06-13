@@ -1,20 +1,19 @@
 import React from 'react'
 import Header from '../components/Header'
 import Main from '../components/Main'
-import { useState } from 'react'
 import HeaderButton from '../components/HeaderButton'
+import Login from '../components/Login'
+import Register from '../components/Register'
+import Nav from '../components/Nav'
 
-const HeaderMain = ({ children }) => {
-
-    const [headerOpen, setHeaderOpen] = useState(false);
-
-    const toggleHeader = () => {
-        setHeaderOpen(!headerOpen);
-    };
-
+const HeaderMain = ({ children, headerOpen, toggleHeader }) => {
     return (
         <>
-            <Header headerOpen={headerOpen}/>
+            <Header headerOpen={headerOpen}>
+                <Nav/>
+                {/* <Login/> */}
+                {/* <Register/> */}
+            </Header>
             <HeaderButton toggleHeader={toggleHeader} headerOpen={headerOpen}/>
             <Main headerOpen={headerOpen}>{children}</Main>
         </>
