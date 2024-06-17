@@ -86,25 +86,20 @@ const ApplyLoan = () => {
     e.preventDefault();
     try {
       const formData = {
-        name: `${loanType}`,
-        amount: `${amount}`,
+        name: loanType,
+        amount: amount,
         payments: payments,
-        accountNumber: `${selectedAccount}`,
+        accountNumber: selectedAccount
       };
-
-      console.log(formData);
 
       await axios.post('http://localhost:8080/api/loans/apply', formData, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`
         }
       });
-
-      console.log("Formulario enviado:", formData);
     } catch (error) {
-      console.error('Error al enviar el formulario:', error);
+      console.log(error);
     }
-    console.log("Formulario enviado!");
   };
 
   return (

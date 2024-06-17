@@ -19,7 +19,6 @@ const Accounts = () => {
             }
         })
             .then(response => {
-                console.log(response.data);
                 setData(response.data.accounts);
             })
             .catch(error => {
@@ -32,7 +31,6 @@ const Accounts = () => {
             <Title title="Welcome, Melba!" />
             <section className='flex flex-col items-center gap-4'>
                 <div className='flex flex-wrap gap-6 pt-[120px] justify-center'>
-                    {console.log(data)}
                     {
                         data.length > 0 ?
                             (

@@ -17,7 +17,6 @@ const Cards = () => {
             }
         })
             .then(response => {
-                console.log(response.data);
                 setData(response.data.cards);
             })
             .catch(error => {
@@ -32,7 +31,6 @@ const Cards = () => {
                 <article className='flex flex-wrap md:flex-row justify-center content-center justify-evenly pt-20 flex-grow'>
                     <div className='flex flex-col gap-6 py-10'>
                         <h2 className='text-2xl text-white font-bold'>Credit</h2>
-                        {console.log(data.cards)}
                         {
                             data.length > 0 ?
                                 (
