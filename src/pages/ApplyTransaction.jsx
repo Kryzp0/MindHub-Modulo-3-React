@@ -5,6 +5,8 @@ import { RiMoneyDollarCircleFill } from "react-icons/ri";
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'; 
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 const ApplyTransaction = () => {
     const [fromAccount, setFromAccount] = useState('');
@@ -50,6 +52,16 @@ const ApplyTransaction = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const result = await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, apply it!'
+        });
+        if (result.isConfirmed) {
         try {
             const formData = {
                 fromAccountNumber: fromAccount,
@@ -63,10 +75,22 @@ const ApplyTransaction = () => {
                     Authorization: `Bearer ${token}`
                 }
             });
+            Swal.fire({
+                title: 'Applied!',
+                text: 'Your transaction has been applied successfully.',
+                icon: 'success'
+            });
             navigate('/accounts');
         } catch (error) {
+            const errorMessage = error.response.data;
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: errorMessage,
+              });
             console.log(error);
         }
+    }
     };
 
     return (
