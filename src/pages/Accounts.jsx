@@ -5,7 +5,6 @@ import Account from '../components/Account';
 import GetBanner from '../components/GetBanner';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import { login } from '../redux/actions/loginActions';
 
 const Accounts = () => {
 

@@ -5,24 +5,25 @@ import HeaderButton from '../components/HeaderButton'
 import Login from '../components/Login'
 import Register from '../components/Register'
 import Nav from '../components/Nav'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { setLoggedIn } from '../redux/actions/loginActions';
 
 
 
 const HeaderMain = ({ children, headerOpen, toggleHeader, showLogin, toggleLoginOrRegister, setLoginOrRegister }) => {
+    const dispatch = useDispatch();
     const state = useSelector(store => store.loginReducer);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const { loggedIn } = state
+    const { loggedIn } = state;
 
     useEffect(() => {
         const loggedInStatus = localStorage.getItem('loggedIn') === 'true';
-        setIsLoggedIn(loggedInStatus);
-    }, []);
+        dispatch(setLoggedIn(loggedInStatus));
+    }, [dispatch]);
 
     return (
         <>
             <Header headerOpen={headerOpen}>
-                {(loggedIn || isLoggedIn) ? (
+                {loggedIn ? (
                     <Nav onLoginClick={setLoginOrRegister} />
                 ) : (
                     showLogin ? (

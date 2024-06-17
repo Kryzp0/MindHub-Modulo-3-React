@@ -2,11 +2,48 @@ import React, { useState, useEffect } from 'react';
 import Title from '../components/Title'
 import { RiMoneyDollarCircleFill } from "react-icons/ri";
 import ProceedButton from '../components/ProceedButton';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 const ApplyLoan = () => {
 
   const [loanType, setLoanType] = useState('');
   const [installments, setInstallments] = useState([]);
+  const token = useSelector(store => store.loginReducer.token) || localStorage.getItem('token');
+  const [loans, setLoans] = useState([]);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+
+    axios.get('http://localhost:8080/api/loans/', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(response => {
+        console.log(response.data);
+        setLoans(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, [])
+
+  useEffect(() => {
+
+    axios.get('http://localhost:8080/api/clients/current', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(response => {
+        console.log(response.data);
+        setData(response.data.accounts);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, [])
 
   useEffect(() => {
     switch (loanType) {
@@ -43,15 +80,12 @@ const ApplyLoan = () => {
           <label htmlFor="loanType" className="block mb-2 text-sm font-medium text-white">Loan type</label>
           <select id="loanType" value={loanType} onChange={handleLoanTypeChange} className="border border-gray-600 bg-gray-700 text-white text-sm rounded-lg block w-full p-2.5 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500">
             <option value="">- Select your loan -</option>
-            <option>Mortgage</option>
-            <option>Personal</option>
-            <option>Automotive</option>
+            {loans.map(loan => <option key={loan.id} value={loan.name}>{loan.name}</option>)}
           </select>
           <label htmlFor="originatingAccount" className="block mb-2 text-sm font-medium text-white">Originating account</label>
           <select id="originatingAccount" className="border border-gray-600 bg-gray-700 text-white text-sm rounded-lg block w-full p-2.5 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500">
             <option value="">- Select your account -</option>
-            <option>VIN001</option>
-            <option>VIN002</option>
+            {data.map(account => <option key={account.id} value={account.number}>{account.number}</option>)}
           </select>
           <label htmlFor="amount" className="block mb-2 text-sm font-medium text-white">Amount:</label>
           <div className="flex">

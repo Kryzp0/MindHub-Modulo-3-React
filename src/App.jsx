@@ -36,25 +36,30 @@ function App() {
             </PrivateRoute>
           } />
           <Route path="/cards" element={
-            <PrivateRoute><Cards />
+            <PrivateRoute>
+              <Cards />
             </PrivateRoute>
           } />
           <Route path="/loans" element={
-            <PrivateRoute><Loans />
+            <PrivateRoute>
+              <Loans />
             </PrivateRoute>
           } />
           <Route path="/apply-loan" element={
-            <PrivateRoute><ApplyLoan />
+            <PrivateRoute>
+              <ApplyLoan />
             </PrivateRoute>
           } />
           <Route path="/apply-card" element={
-            <PrivateRoute><ApplyCard />
+            <PrivateRoute>
+              <ApplyCard />
             </PrivateRoute>
           } />
           <Route
             path="/"
             element={
-              <PublicRoute><LandingPage headerOpen={headerOpen} toggleHeader={toggleHeader} setLoginOrRegister={setLoginOrRegister} />
+              <PublicRoute>
+                <LandingPage headerOpen={headerOpen} toggleHeader={toggleHeader} setLoginOrRegister={setLoginOrRegister} />
               </PublicRoute>
             } />
         </Routes>
