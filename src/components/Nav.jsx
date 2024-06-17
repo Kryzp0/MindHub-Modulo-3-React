@@ -3,27 +3,46 @@ import { HiUser } from "react-icons/hi";
 import { FaCreditCard } from "react-icons/fa";
 import { GoArrowSwitch } from "react-icons/go";
 import { GiTakeMyMoney, GiExitDoor } from "react-icons/gi";
+import { useDispatch } from 'react-redux';
 import Links from './Links';
+import { NavLink } from 'react-router-dom'
+import { logout } from '../redux/actions/loginActions';
 
-const Nav = () => {
+const Nav = ({ setLoginOrRegister }) => {
+    const dispatch = useDispatch();
+    const handleLogout = () => {
+        dispatch(logout());
+        localStorage.clear();
+        setLoginOrRegister(true);
+    }
+
     return (
         <>
             <nav className="flex flex-col items-center w-full gap-4 pt-2">
-                <Links linkTo={"/accounts"} color={'hover:bg-[#374151]'}>
+                <Links linkTo={"/accounts"}>
                     <HiUser />Accounts
                 </Links>
-                <Links linkTo={"/cards"} color={'hover:bg-[#374151]'}>
+                <Links linkTo={"/cards"}>
                     <FaCreditCard />Cards
                 </Links>
-                <Links linkTo={"/transaction"} color={'hover:bg-[#374151]'}>
+                <Links linkTo={"/transaction"}>
                     <GoArrowSwitch />Transaction
                 </Links>
-                <Links linkTo={"/loans"} color={'hover:bg-[#374151]'}>
+                <Links linkTo={"/loans"}>
                     <GiTakeMyMoney />Loans
                 </Links>
-                <Links linkTo={"/"} color={'hover:bg-[#DC2626]'}>
+                <NavLink 
+                    to={"/"} 
+                    onClick={handleLogout}
+                    className={({ isActive }) => {
+                    return ('text-white text-2xl py-4 px-4 w-full mx-4 flex gap-4 hover:bg-[#DC2626] rounded-xl transition-all duration-300 items-center ' +
+                        (isActive
+                            ? 'bg-[#DC2626]'
+                            : '')
+                    )
+                }}>
                     <GiExitDoor />Log Out
-                </Links>
+                </NavLink>
             </nav>
         </>
     )

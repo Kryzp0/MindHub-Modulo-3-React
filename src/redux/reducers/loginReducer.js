@@ -1,28 +1,22 @@
 import { createReducer } from '@reduxjs/toolkit'
-import { login } from '../actions/loginActions'
+import { login, logout } from '../actions/loginActions'
 
 const initialState = {
     loggedIn: false,
-    token:'',
-    refreshtoken:'',
-    error: '',
-    user: {
-        name: '',
-        email: '',
-    }
+    token: '',
+    expiredIn: '',
 }
 
 const loginReducer = createReducer(initialState, (builder) => {
     builder.addCase(login, (state, action) => {
         return {
             ...state,
-             user:{
-                    name: action.payload.name,
-                    email: action.payload.email
-             }
-            }
-        
+            token: action.payload.token,
+            expiredIn: action.payload.expiredIn,
+            loggedIn: action.payload.loggedIn
+        }
     })
-    .addCase(logout, (state, action) => {})
-    
-})
+    .addCase(logout, (state, action) => initialState)
+});
+
+export default loginReducer;

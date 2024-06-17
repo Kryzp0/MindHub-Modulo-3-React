@@ -1,26 +1,41 @@
+import axios from 'axios';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { login } from '../redux/actions/loginActions';
 
-const Login = ({ headerOpen, toggleHeader }) => {
-    const [username, setUsername] = useState('');
+const Login = ({ headerOpen, toggleHeader, onRegisterClick }) => {
+    const dispatch = useDispatch();
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Aquí iría la lógica de autenticación
-        console.log("Username:", username, "Password:", password);
-        // Simular login
-        window.location.href = "/accounts"; // Redirige a una ruta protegida
+        console.log("Username:", email, "Password:", password);
+        try {
+            const response = await axios.post('http://localhost:8080/api/auth/login', { email, password });
+            let token = response.data;
+            console.log(response);
+            console.log(token);
+
+            localStorage.setItem('token', token);
+            localStorage.setItem('loggedIn', 'true');
+
+            dispatch(login(token));
+        } catch (error) {
+            console.log(error);
+        }
+
     };
 
     return (
             <form className="p-4 rounded-lg text-white" onSubmit={handleSubmit}>
                 <h2 className="text-2xl mb-4">Login</h2>
                 <div className="mb-4">
-                    <label className="block text-sm font-bold mb-2">Username</label>
+                    <label className="block text-sm font-bold mb-2">Email</label>
                     <input
                         type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         className="bg-[#111827] shadow appearance-none border border-[#4a6382] rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
                         required
                     />
@@ -44,7 +59,7 @@ const Login = ({ headerOpen, toggleHeader }) => {
                     </button>
                 </div>
                 <p className="mt-4">
-                    Don't have an account? <a href="/register" className="text-blue-500">Register</a>
+                    Don't have an account? <a className="text-blue-500 cursor-pointer" onClick={onRegisterClick}>Register</a>
                 </p>
             </form>
     );

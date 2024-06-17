@@ -7,21 +7,22 @@ import axios from 'axios';
 const Cards = () => {
 
     const [data, setData] = useState([]);
+    const token = localStorage.getItem('token');
 
-    const getData = () => {
-        axios.get('http://localhost:8080/api/clients/4')
+    useEffect(() => {
+
+        axios.get('http://localhost:8080/api/clients/current', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
             .then(response => {
-                console.log();
-                console.log(response.data.cards);
+                console.log(response.data);
                 setData(response.data.cards);
             })
             .catch(error => {
                 console.log(error);
             });
-    }
-
-    useEffect(() => {
-        getData();
     }, [])
 
     return (

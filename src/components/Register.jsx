@@ -1,33 +1,43 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 
-const Register = ({ headerOpen, toggleHeader }) => {
-    const [name, setName] = useState('');
+const Register = ({ headerOpen, toggleHeader, onLoginClick }) => {
+    const [firstName, setFirstname] = useState('');
+    const [lastName, setLastname] = useState('');
     const [email, setEmail] = useState('');
-    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (password !== confirmPassword) {
             alert("Passwords do not match!");
             return;
         }
-        // Aquí iría la lógica de registro
-        console.log("Name:", name, "Email:", email, "Username:", username, "Password:", password);
-        // Simular registro
-        window.location.href = "/accounts"; // Redirige a una ruta protegida
+        console.log("FirstName:", firstName,"LastName:", lastName, "Email:", email, "Password:", password);
+        const response = await axios.post('http://localhost:8080/api/auth/signup', { firstName, lastName, email, password });
+        console.log(response);
     };
 
     return (
         <form className="p-4 rounded-lg text-white w-full" onSubmit={handleSubmit}>
             <h2 className="text-2xl mb-4">Register</h2>
             <div className="mb-4">
-                <label className="block text-sm font-bold mb-2">Name</label>
+                <label className="block text-sm font-bold mb-2">First Name</label>
                 <input
                     type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    value={firstName}
+                    onChange={(e) => setFirstname(e.target.value)}
+                    className="bg-[#111827] shadow appearance-none border border-[#4a6382] rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+                    required
+                />
+            </div>
+            <div className="mb-4">
+                <label className="block text-sm font-bold mb-2">Last Name</label>
+                <input
+                    type="text"
+                    value={lastName}
+                    onChange={(e) => setLastname(e.target.value)}
                     className="bg-[#111827] shadow appearance-none border border-[#4a6382] rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
                     required
                 />
@@ -38,16 +48,6 @@ const Register = ({ headerOpen, toggleHeader }) => {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="bg-[#111827] shadow appearance-none border border-[#4a6382] rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
-                    required
-                />
-            </div>
-            <div className="mb-4">
-                <label className="block text-sm font-bold mb-2">Username</label>
-                <input
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
                     className="bg-[#111827] shadow appearance-none border border-[#4a6382] rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
                     required
                 />
@@ -81,7 +81,7 @@ const Register = ({ headerOpen, toggleHeader }) => {
                 </button>
             </div>
             <p className="mt-4">
-                Already have an account? <a href="/login" className="text-blue-500">Log In</a>
+                Already have an account? <a className="text-blue-500 cursor-pointer" onClick={onLoginClick}>Log In</a>
             </p>
         </form>
     );

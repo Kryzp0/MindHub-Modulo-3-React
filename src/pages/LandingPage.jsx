@@ -3,7 +3,7 @@ import Title from '../components/Title';
 import { Carousel } from 'flowbite-react';
 import Links from '../components/Links';
 
-const LandingPage = ({ headerOpen, toggleHeader }) => {
+const LandingPage = ({ headerOpen, toggleHeader, setLoginOrRegister }) => {
     return (
         <>
             <Title className='mx-10' title="Welcome to GhiBank!" />
@@ -16,12 +16,21 @@ const LandingPage = ({ headerOpen, toggleHeader }) => {
                     </p>
                     <div className='flex gap-4 mt-4'>
                         <button
-                            onClick={toggleHeader}
+                            onClick={() => {
+                                toggleHeader();
+                                setLoginOrRegister(true);
+                            }}
                             className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
                         >
                             Log In
                         </button>
-                            <button className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded'>
+                            <button 
+                                onClick={() => {
+                                    toggleHeader();
+                                    setLoginOrRegister(false);
+                                }}
+                                className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded'
+                            >
                                 Get Started
                             </button>
                     </div>

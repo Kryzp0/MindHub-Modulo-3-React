@@ -1,28 +1,32 @@
-import React, { useEffect, useState } from 'react'
-import Title from '../components/Title'
+import React, { useEffect, useState } from 'react';
+import Title from '../components/Title';
 import { Carousel } from "flowbite-react";
 import Account from '../components/Account';
 import GetBanner from '../components/GetBanner';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { login } from '../redux/actions/loginActions';
 
 const Accounts = () => {
+
+    const token = useSelector(store => store.loginReducer.token) || localStorage.getItem('token');
     const [data, setData] = useState([]);
 
-    const getData = () => {
-        axios.get('http://localhost:8080/api/clients/4')
+    useEffect(() => {
+        
+        axios.get('http://localhost:8080/api/clients/current', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
             .then(response => {
-                console.log(response.data.accounts);
+                console.log(response.data);
                 setData(response.data.accounts);
             })
             .catch(error => {
                 console.log(error);
             });
-    }
-
-    useEffect(() => {
-        getData();
     }, [])
-
 
     return (
         <>
