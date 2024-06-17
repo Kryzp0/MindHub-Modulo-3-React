@@ -2,9 +2,11 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/actions/loginActions';
+import { useNavigate } from 'react-router-dom';
 
 const Login = ({ headerOpen, toggleHeader, onRegisterClick }) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -21,6 +23,8 @@ const Login = ({ headerOpen, toggleHeader, onRegisterClick }) => {
             localStorage.setItem('loggedIn', 'true');
 
             dispatch(login(token));
+
+            navigate('/accounts');
         } catch (error) {
             console.log(error);
         }

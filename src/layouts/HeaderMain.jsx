@@ -12,12 +12,12 @@ import { useSelector } from 'react-redux'
 const HeaderMain = ({ children, headerOpen, toggleHeader, showLogin, toggleLoginOrRegister, setLoginOrRegister }) => {
     const state = useSelector(store => store.loginReducer);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const { loggedIn } = state
 
     useEffect(() => {
         const loggedInStatus = localStorage.getItem('loggedIn') === 'true';
         setIsLoggedIn(loggedInStatus);
     }, []);
-    const { loggedIn } = state
 
     return (
         <>

@@ -11,3 +11,5 @@ export const login = createAction('LOGIN', (token) => {
 })
 
 export const logout = createAction('LOGOUT')
+
+export const setLoggedIn = createAction('SET_LOGGED_IN');

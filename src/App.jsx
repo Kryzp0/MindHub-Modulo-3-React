@@ -7,6 +7,8 @@ import ApplyCard from "./pages/ApplyCard"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import LandingPage from "./pages/LandingPage"
 import { useState } from 'react'
+import PrivateRoute from "./components/PrivateRoute"
+import PublicRoute from "./components/PublicRoute"
 
 function App() {
   const [showLogin, setShowLogin] = useState(true);
@@ -28,15 +30,33 @@ function App() {
     <BrowserRouter>
       <HeaderMain setLoginOrRegister={setLoginOrRegister} headerOpen={headerOpen} toggleHeader={toggleHeader} showLogin={showLogin} toggleLoginOrRegister={toggleLoginOrRegister}>
         <Routes>
-          <Route path="/accounts" element={<Accounts />} />
-          <Route path="/cards" element={<Cards />} />
-          <Route path="/loans" element={<Loans />} />
-          <Route path="/apply-loan" element={<ApplyLoan />} />
-          <Route path="/apply-card" element={<ApplyCard />} />
+          <Route path="/accounts" element={
+            <PrivateRoute>
+              <Accounts />
+            </PrivateRoute>
+          } />
+          <Route path="/cards" element={
+            <PrivateRoute><Cards />
+            </PrivateRoute>
+          } />
+          <Route path="/loans" element={
+            <PrivateRoute><Loans />
+            </PrivateRoute>
+          } />
+          <Route path="/apply-loan" element={
+            <PrivateRoute><ApplyLoan />
+            </PrivateRoute>
+          } />
+          <Route path="/apply-card" element={
+            <PrivateRoute><ApplyCard />
+            </PrivateRoute>
+          } />
           <Route
             path="/"
-            element={<LandingPage headerOpen={headerOpen} toggleHeader={toggleHeader} setLoginOrRegister={setLoginOrRegister} />}
-          />
+            element={
+              <PublicRoute><LandingPage headerOpen={headerOpen} toggleHeader={toggleHeader} setLoginOrRegister={setLoginOrRegister} />
+              </PublicRoute>
+            } />
         </Routes>
       </HeaderMain>
     </BrowserRouter>
