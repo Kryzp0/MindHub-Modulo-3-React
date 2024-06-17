@@ -4,6 +4,7 @@ import { RiMoneyDollarCircleFill } from "react-icons/ri";
 import ProceedButton from '../components/ProceedButton';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'
 
 const ApplyLoan = () => {
 
@@ -14,6 +15,7 @@ const ApplyLoan = () => {
   const [payments, setPayments] = useState(0);
 
   const token = useSelector(store => store.loginReducer.token) || localStorage.getItem('token');
+  const navigate = useNavigate();
   const [loans, setLoans] = useState([]);
   const [data, setData] = useState([]);
 
@@ -97,6 +99,7 @@ const ApplyLoan = () => {
           Authorization: `Bearer ${token}`
         }
       });
+      navigate('/loans');
     } catch (error) {
       console.log(error);
     }

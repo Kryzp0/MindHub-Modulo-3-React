@@ -3,11 +3,14 @@ import Title from '../components/Title'
 import ProceedButton from '../components/ProceedButton'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+
 
 const ApplyCard = () => {
     const [cardType, setCardType] = useState('');
     const [cardColor, setCardColor] = useState('');
     const token = useSelector(store => store.loginReducer.token) || localStorage.getItem('token');
+    const navigate = useNavigate();
 
     const handleCardTypeChange = (e) => {
         setCardType(e.target.value);
@@ -30,6 +33,7 @@ const ApplyCard = () => {
                     Authorization: `Bearer ${token}`
                 }
             });
+            navigate('/cards');
         } catch (error) {
             console.log(error);
         }

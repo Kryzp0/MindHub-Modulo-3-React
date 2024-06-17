@@ -9,6 +9,9 @@ import LandingPage from "./pages/LandingPage"
 import { useState } from 'react'
 import PrivateRoute from "./components/PrivateRoute"
 import PublicRoute from "./components/PublicRoute"
+import ApplyTransaction from "./pages/ApplyTransaction"
+import AccountDetails from "./pages/AccountDetails"
+
 
 function App() {
   const [showLogin, setShowLogin] = useState(true);
@@ -53,6 +56,21 @@ function App() {
           <Route path="/apply-card" element={
             <PrivateRoute>
               <ApplyCard />
+            </PrivateRoute>
+          } />
+          <Route path="/apply-transaction" element={
+            <PrivateRoute>
+              <ApplyTransaction />
+            </PrivateRoute>
+          } />
+          <Route path="/transactions" element={
+            <PrivateRoute>
+              <ApplyTransaction />
+            </PrivateRoute>
+          } />
+          <Route path="/account-details/:id" element={
+            <PrivateRoute>
+              <AccountDetails />
             </PrivateRoute>
           } />
           <Route

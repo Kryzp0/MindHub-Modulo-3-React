@@ -25,7 +25,7 @@ const Nav = ({ setLoginOrRegister }) => {
                 <Links linkTo={"/cards"}>
                     <FaCreditCard />Cards
                 </Links>
-                <Links linkTo={"/transaction"}>
+                <Links linkTo={"/apply-transaction"}>
                     <GoArrowSwitch />Transaction
                 </Links>
                 <Links linkTo={"/loans"}>

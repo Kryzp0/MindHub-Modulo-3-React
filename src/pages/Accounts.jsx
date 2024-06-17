@@ -10,6 +10,7 @@ const Accounts = () => {
 
     const token = useSelector(store => store.loginReducer.token) || localStorage.getItem('token');
     const [data, setData] = useState([]);
+    const [accounts, setAccounts] = useState([]);
 
     useEffect(() => {
         
@@ -19,7 +20,8 @@ const Accounts = () => {
             }
         })
             .then(response => {
-                setData(response.data.accounts);
+                setData(response.data);
+                setAccounts(response.data.accounts);
             })
             .catch(error => {
                 console.log(error);
@@ -28,14 +30,14 @@ const Accounts = () => {
 
     return (
         <>
-            <Title title="Welcome, Melba!" />
+            <Title title={"Welcome, "+data.name+"!"} />
             <section className='flex flex-col items-center gap-4'>
                 <div className='flex flex-wrap gap-6 pt-[120px] justify-center'>
                     {
-                        data.length > 0 ?
+                        accounts.length > 0 ?
                             (
-                                data.map(account =>
-                                    (<Account key={account.id} number={account.number} balance={account.balance} creationDate={account.creationDate} />))
+                                accounts.map(account =>
+                                    (<Account key={account.id} id={account.id} number={account.number} balance={account.balance} creationDate={account.creationDate} />))
                             ) : (<p className='text-white text-lg'>No accounts available.</p>)
                     }
                 </div>
