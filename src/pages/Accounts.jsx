@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import Title from '../components/Title';
 import { Carousel } from "flowbite-react";
 import Account from '../components/Account';
-import GetBanner from '../components/GetBanner';
+import GetAccount from '../components/GetAccount';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
+import Swal from 'sweetalert2'; 
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 const Accounts = () => {
 
@@ -28,6 +30,44 @@ const Accounts = () => {
             });
     }, [])
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const result = await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, apply it!'
+        });
+
+        if (result.isConfirmed) {
+            try {
+                await axios.post('http://localhost:8080/api/clients/current/accounts/',{}, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                Swal.fire({
+                    title: 'Applied!',
+                    text: 'Your account has been applied successfully.',
+                    icon: 'success'
+                });
+                navigate('/accounts');
+            } catch (error) {
+                const errorMessage = error.response.data;
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: errorMessage,
+                  });
+                console.log(error);
+            }
+        }
+    };
+
     return (
         <>
             <Title title={"Welcome, "+data.name+"!"} />
@@ -41,7 +81,7 @@ const Accounts = () => {
                             ) : (<p className='text-white text-lg'>No accounts available.</p>)
                     }
                 </div>
-                <GetBanner type={"account"} request={"create"} linkTo={"/accounts"} />
+                <GetAccount handleSubmit={handleSubmit} type={"account"} request={"create"} />
             </section>
             <div className="h-44 p-6">
                 <Carousel>

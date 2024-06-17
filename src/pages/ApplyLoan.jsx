@@ -5,6 +5,8 @@ import ProceedButton from '../components/ProceedButton';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2'; 
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 const ApplyLoan = () => {
 
@@ -86,22 +88,48 @@ const ApplyLoan = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const formData = {
-        name: loanType,
-        amount: amount,
-        payments: payments,
-        accountNumber: selectedAccount
-      };
 
-      await axios.post('http://localhost:8080/api/loans/apply', formData, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, apply it!'
+    });
+
+    if (result.isConfirmed) {
+      try {
+        const formData = {
+          name: loanType,
+          amount: amount,
+          payments: payments,
+          accountNumber: selectedAccount
+        };
+
+
+        await axios.post('http://localhost:8080/api/loans/apply', formData, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        Swal.fire({
+          title: 'Applied!',
+          text: 'Your loan has been applied successfully.',
+          icon: 'success'
       });
-      navigate('/loans');
-    } catch (error) {
-      console.log(error);
+        navigate('/loans');
+      } catch (error) {
+                const errorMessage = error.response.data;
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: errorMessage,
+                  });
+                console.log(error);
+      }
+
     }
   };
 

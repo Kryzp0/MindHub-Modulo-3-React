@@ -4,6 +4,8 @@ import ProceedButton from '../components/ProceedButton'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2'; 
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 
 const ApplyCard = () => {
@@ -22,20 +24,44 @@ const ApplyCard = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const formData = {
-                type: cardType,
-                color: cardColor
-            };
 
-            await axios.post('http://localhost:8080/api/clients/current/cards/', formData, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-            navigate('/cards');
-        } catch (error) {
-            console.log(error);
+        const result = await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, apply it!'
+        });
+
+        if (result.isConfirmed) {
+            try {
+                const formData = {
+                    type: cardType,
+                    color: cardColor
+                };
+
+                await axios.post('http://localhost:8080/api/clients/current/cards/', formData, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                Swal.fire({
+                    title: 'Applied!',
+                    text: 'Your card has been applied successfully.',
+                    icon: 'success'
+                });
+                navigate('/cards');
+            } catch (error) {
+                const errorMessage = error.response.data;
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: errorMessage,
+                  });
+                console.log(error);
+            }
         }
     };
 
@@ -63,5 +89,6 @@ const ApplyCard = () => {
         </>
     )
 }
+
 
 export default ApplyCard
