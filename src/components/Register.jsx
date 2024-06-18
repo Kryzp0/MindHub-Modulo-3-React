@@ -1,5 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import Swal from 'sweetalert2'; 
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 const Register = ({ headerOpen, toggleHeader, onLoginClick }) => {
     const [firstName, setFirstname] = useState('');
@@ -11,12 +13,30 @@ const Register = ({ headerOpen, toggleHeader, onLoginClick }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (password !== confirmPassword) {
-            alert("Passwords do not match!");
-            return;
+            Swal.fire({
+                icon: 'error',
+                title: 'Passwords do not match',
+                text: 'Please enter the same password in both fields.',
+            });
         }
         console.log("FirstName:", firstName,"LastName:", lastName, "Email:", email, "Password:", password);
-        const response = await axios.post('https://homebankingapp.onrender.com/api/auth/signup', { firstName, lastName, email, password });
-        console.log(response);
+        try {
+            const response = await axios.post('https://homebankingapp.onrender.com/api/auth/signup', { firstName, lastName, email, password });
+            Swal.fire({
+                title: 'Registered!',
+                text: 'You have successfully registered. You can now log in.',
+                icon: 'success'
+            });
+            onLoginClick();
+        } catch (error) {
+            const errorMessage = error.response.data;
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: errorMessage,
+                  });
+                console.log(error);
+        }
     };
 
     return (
