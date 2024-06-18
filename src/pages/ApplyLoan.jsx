@@ -125,7 +125,7 @@ const ApplyLoan = () => {
           <label htmlFor="loanType" className="block mb-2 text-sm font-medium text-white">Loan type</label>
           <select id="loanType" value={loanType} onChange={(e)=> setLoanType(e.target.value)} className="border border-gray-600 bg-gray-700 text-white text-sm rounded-lg block w-full p-2.5 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500">
             <option value="">- Select your loan -</option>
-            {loans.map(loan => <option key={loan.id} value={loan.name}>{loan.name}</option>)}
+            {loans.map(loan => <option key={loan.id} value={loan.name}>{loan.name + ' (Max amount: $' + loan.maxAmount + ')'}</option>)}
           </select>
           <label htmlFor="originatingAccount" className="block mb-2 text-sm font-medium text-white">Originating account</label>
           <select id="originatingAccount" onChange={(e)=> setSelectedAccount(e.target.value)} className="border border-gray-600 bg-gray-700 text-white text-sm rounded-lg block w-full p-2.5 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500">
