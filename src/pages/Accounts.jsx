@@ -16,7 +16,7 @@ const Accounts = () => {
 
     useEffect(() => {
         
-        axios.get('http://localhost:8080/api/clients/current', {
+        axios.get('https://homebanking-dife.onrender.com/api/clients/current', {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -45,7 +45,7 @@ const Accounts = () => {
 
         if (result.isConfirmed) {
             try {
-                await axios.post('http://localhost:8080/api/clients/current/accounts/',{}, {
+                await axios.post('https://homebanking-dife.onrender.com/api/clients/current/accounts/',{}, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

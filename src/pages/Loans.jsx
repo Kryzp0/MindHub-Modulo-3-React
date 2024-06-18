@@ -12,7 +12,7 @@ const Loans = () => {
 
   useEffect(() => {
 
-    axios.get('http://localhost:8080/api/clients/current', {
+    axios.get('https://homebanking-dife.onrender.com/api/clients/current', {
       headers: {
         Authorization: `Bearer ${token}`
       }

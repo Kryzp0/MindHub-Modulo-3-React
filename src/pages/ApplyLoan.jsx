@@ -23,7 +23,7 @@ const ApplyLoan = () => {
 
   useEffect(() => {
 
-    axios.get('http://localhost:8080/api/loans/', {
+    axios.get('https://homebanking-dife.onrender.com/api/loans/', {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -39,7 +39,7 @@ const ApplyLoan = () => {
 
   useEffect(() => {
 
-    axios.get('http://localhost:8080/api/clients/current', {
+    axios.get('https://homebanking-dife.onrender.com/api/clients/current', {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -109,7 +109,7 @@ const ApplyLoan = () => {
         };
 
 
-        await axios.post('http://localhost:8080/api/loans/apply', formData, {
+        await axios.post('https://homebanking-dife.onrender.com/api/loans/apply', formData, {
           headers: {
             Authorization: `Bearer ${token}`
           }

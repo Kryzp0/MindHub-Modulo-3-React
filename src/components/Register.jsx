@@ -15,7 +15,7 @@ const Register = ({ headerOpen, toggleHeader, onLoginClick }) => {
             return;
         }
         console.log("FirstName:", firstName,"LastName:", lastName, "Email:", email, "Password:", password);
-        const response = await axios.post('http://localhost:8080/api/auth/signup', { firstName, lastName, email, password });
+        const response = await axios.post('https://homebanking-dife.onrender.com/api/auth/signup', { firstName, lastName, email, password });
         console.log(response);
     };
 
