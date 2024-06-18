@@ -70,22 +70,6 @@ const ApplyLoan = () => {
     }
   }, [loanType]);
 
-  const handleLoanTypeChange = (e) => {
-    setLoanType(e.target.value);
-  };
-
-  const handlePaymentsChange = (e) => {
-    setPayments(e.target.value);
-  };
-
-  const handleAccountChange = (e) => {
-    setSelectedAccount(e.target.value);
-  };
-
-  const handleAmountChange = (e) => {
-    setAmount(e.target.value);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -139,12 +123,12 @@ const ApplyLoan = () => {
       <section className='flex flex-col items-start gap-4 pt-[120px]'>
         <form className="flex flex-col gap-4 max-w-sm mx-auto" onSubmit={handleSubmit}>
           <label htmlFor="loanType" className="block mb-2 text-sm font-medium text-white">Loan type</label>
-          <select id="loanType" value={loanType} onChange={handleLoanTypeChange} className="border border-gray-600 bg-gray-700 text-white text-sm rounded-lg block w-full p-2.5 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500">
+          <select id="loanType" value={loanType} onChange={(e)=> setLoanType(e.target.value)} className="border border-gray-600 bg-gray-700 text-white text-sm rounded-lg block w-full p-2.5 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500">
             <option value="">- Select your loan -</option>
             {loans.map(loan => <option key={loan.id} value={loan.name}>{loan.name}</option>)}
           </select>
           <label htmlFor="originatingAccount" className="block mb-2 text-sm font-medium text-white">Originating account</label>
-          <select id="originatingAccount" onChange={handleAccountChange} className="border border-gray-600 bg-gray-700 text-white text-sm rounded-lg block w-full p-2.5 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500">
+          <select id="originatingAccount" onChange={(e)=> setSelectedAccount(e.target.value)} className="border border-gray-600 bg-gray-700 text-white text-sm rounded-lg block w-full p-2.5 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500">
             <option value="">- Select your account -</option>
             {data.map(account => <option key={account.id} value={account.number}>{account.number}</option>)}
           </select>
@@ -153,10 +137,10 @@ const ApplyLoan = () => {
             <span className="inline-flex items-center px-3 text-sm border border-e-0 rounded-s-md bg-gray-600 text-gray-400 border-gray-600">
               <RiMoneyDollarCircleFill />
             </span>
-            <input type="number" id="amount" onChange={handleAmountChange} className="text-right rounded-none rounded-e-lg border block flex-1 min-w-0 w-full text-sm p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Enter your amount" />
+            <input type="number" id="amount" onChange={(e) => setAmount(e.target.value)} className="text-right rounded-none rounded-e-lg border block flex-1 min-w-0 w-full text-sm p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Enter your amount" />
           </div>
           <label htmlFor="installments" className="block mb-2 text-sm font-medium text-white">Installments</label>
-          <select id="installments" onChange={handlePaymentsChange} className="border border-gray-600 bg-gray-700 text-white text-sm rounded-lg block w-full p-2.5 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500">
+          <select id="installments" onChange={(e)=> setPayments(e.target.value)} className="border border-gray-600 bg-gray-700 text-white text-sm rounded-lg block w-full p-2.5 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500">
             <option value="">- Select your installments -</option>
             {installments.map((installment, index) => (
               <option key={index} value={installment}>{installment}</option>

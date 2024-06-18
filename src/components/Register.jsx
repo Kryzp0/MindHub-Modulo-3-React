@@ -28,6 +28,7 @@ const Register = ({ headerOpen, toggleHeader, onLoginClick }) => {
                 text: 'You have successfully registered. You can now log in.',
                 icon: 'success'
             });
+            console.log("listo");
             onLoginClick();
         } catch (error) {
             const errorMessage = error.response.data;
