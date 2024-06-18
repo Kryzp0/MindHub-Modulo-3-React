@@ -10,6 +10,7 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 
 const Accounts = () => {
 
+    const dispatch = useDispatch();
     const token = useSelector(store => store.loginReducer.token) || localStorage.getItem('token');
     const [data, setData] = useState([]);
     const [accounts, setAccounts] = useState([]);
@@ -27,6 +28,14 @@ const Accounts = () => {
             })
             .catch(error => {
                 console.log(error);
+                if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+                    dispatch(logout());
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Session expired',
+                        text: 'Your session has expired. Please log in again.',
+                    });
+                }
             });
     }, [])
 

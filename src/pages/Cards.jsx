@@ -21,6 +21,14 @@ const Cards = () => {
             })
             .catch(error => {
                 console.log(error);
+                if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+                    dispatch(logout());
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Session expired',
+                        text: 'Your session has expired. Please log in again.',
+                    });
+                }
             });
     }, [])
 
