@@ -23,6 +23,8 @@ const Cards = () => {
                 console.log(error);
                 if (error.response && (error.response.status === 401 || error.response.status === 403)) {
                     dispatch(logout());
+                    localStorage.clear();
+                    setLoginOrRegister(true);
                     Swal.fire({
                         icon: 'error',
                         title: 'Session expired',
