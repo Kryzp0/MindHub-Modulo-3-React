@@ -18,6 +18,7 @@ const Register = ({ headerOpen, toggleHeader, onLoginClick }) => {
                 title: 'Passwords do not match',
                 text: 'Please enter the same password in both fields.',
             });
+            return;
         }
         console.log("FirstName:", firstName,"LastName:", lastName, "Email:", email, "Password:", password);
         try {
