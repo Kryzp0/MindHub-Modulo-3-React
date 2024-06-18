@@ -11,7 +11,7 @@ const Cards = () => {
 
     useEffect(() => {
 
-        axios.get('https://homebanking-dife.onrender.com/api/clients/current', {
+        axios.get('https://homebankingapp.onrender.com/api/clients/current', {
             headers: {
                 Authorization: `Bearer ${token}`
             }

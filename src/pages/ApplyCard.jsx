@@ -42,7 +42,7 @@ const ApplyCard = () => {
                     color: cardColor
                 };
 
-                await axios.post('https://homebanking-dife.onrender.com/api/clients/current/cards/', formData, {
+                await axios.post('https://homebankingapp.onrender.com/api/clients/current/cards/', formData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

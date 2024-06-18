@@ -14,7 +14,7 @@ const Login = ({ headerOpen, toggleHeader, onRegisterClick }) => {
         e.preventDefault();
         console.log("Username:", email, "Password:", password);
         try {
-            const response = await axios.post('https://homebanking-dife.onrender.com/api/auth/login', { email, password });
+            const response = await axios.post('https://homebankingapp.onrender.com/api/auth/login', { email, password });
             let token = response.data;
             console.log(response);
             console.log(token);

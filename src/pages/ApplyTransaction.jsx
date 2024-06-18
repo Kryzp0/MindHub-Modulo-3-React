@@ -37,7 +37,7 @@ const ApplyTransaction = () => {
 
     useEffect(() => {
 
-        axios.get('https://homebanking-dife.onrender.com/api/clients/current', {
+        axios.get('https://homebankingapp.onrender.com/api/clients/current', {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -70,7 +70,7 @@ const ApplyTransaction = () => {
                 description: description
             };
 
-            await axios.post('https://homebanking-dife.onrender.com/api/transactions/apply', formData, {
+            await axios.post('https://homebankingapp.onrender.com/api/transactions/apply', formData, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
