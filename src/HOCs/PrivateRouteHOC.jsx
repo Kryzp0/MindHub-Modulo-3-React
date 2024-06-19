@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setLoggedIn } from '../redux/actions/loginActions';
 
-const PrivateRoute = ({ children }) => {
+const PrivateRouteHOC = (WrappedComponent) => (props) => {
     const dispatch = useDispatch();
     const state = useSelector(store => store.loginReducer);
     const { loggedIn } = state;
@@ -13,7 +13,7 @@ const PrivateRoute = ({ children }) => {
         dispatch(setLoggedIn(loggedInStatus));
     }, [dispatch]);
 
-    return loggedIn ? children : <Navigate to="/" />;
+    return loggedIn ? <WrappedComponent {...props} /> : <Navigate to="/" />;
 };
 
-export default PrivateRoute;
+export default PrivateRouteHOC;

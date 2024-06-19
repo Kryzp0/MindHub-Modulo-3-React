@@ -7,7 +7,7 @@ import ApplyCard from "./pages/ApplyCard"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import LandingPage from "./pages/LandingPage"
 import { useState } from 'react'
-import PrivateRoute from "./components/PrivateRoute"
+import PrivateRouteHOC from "./HOCs/PrivateRouteHOC"
 import PublicRoute from "./components/PublicRoute"
 import ApplyTransaction from "./pages/ApplyTransaction"
 import AccountDetails from "./pages/AccountDetails"
@@ -33,46 +33,14 @@ function App() {
     <BrowserRouter>
       <HeaderMain setLoginOrRegister={setLoginOrRegister} headerOpen={headerOpen} toggleHeader={toggleHeader} showLogin={showLogin} toggleLoginOrRegister={toggleLoginOrRegister}>
         <Routes>
-          <Route path="/accounts" element={
-            <PrivateRoute>
-              <Accounts />
-            </PrivateRoute>
-          } />
-          <Route path="/cards" element={
-            <PrivateRoute>
-              <Cards />
-            </PrivateRoute>
-          } />
-          <Route path="/loans" element={
-            <PrivateRoute>
-              <Loans />
-            </PrivateRoute>
-          } />
-          <Route path="/apply-loan" element={
-            <PrivateRoute>
-              <ApplyLoan />
-            </PrivateRoute>
-          } />
-          <Route path="/apply-card" element={
-            <PrivateRoute>
-              <ApplyCard />
-            </PrivateRoute>
-          } />
-          <Route path="/apply-transaction" element={
-            <PrivateRoute>
-              <ApplyTransaction />
-            </PrivateRoute>
-          } />
-          <Route path="/transactions" element={
-            <PrivateRoute>
-              <ApplyTransaction />
-            </PrivateRoute>
-          } />
-          <Route path="/account-details/:id" element={
-            <PrivateRoute>
-              <AccountDetails />
-            </PrivateRoute>
-          } />
+        <Route path="/accounts" element={<PrivateRouteHOC><Accounts /></PrivateRouteHOC>} />
+          <Route path="/cards" element={<PrivateRouteHOC><Cards /></PrivateRouteHOC>} />
+          <Route path="/loans" element={<PrivateRouteHOC><Loans /></PrivateRouteHOC>} />
+          <Route path="/apply-loan" element={<PrivateRouteHOC><ApplyLoan /></PrivateRouteHOC>} />
+          <Route path="/apply-card" element={<PrivateRouteHOC><ApplyCard /></PrivateRouteHOC>} />
+          <Route path="/apply-transaction" element={<PrivateRouteHOC><ApplyTransaction /></PrivateRouteHOC>} />
+          <Route path="/transactions" element={<PrivateRouteHOC><ApplyTransaction /></PrivateRouteHOC>} />
+          <Route path="/account-details/:id" element={<PrivateRouteHOC><AccountDetails /></PrivateRouteHOC>} />
           <Route
             path="/"
             element={
