@@ -7,21 +7,31 @@ import axios from 'axios';
 const Cards = () => {
 
     const [data, setData] = useState([]);
+    const token = localStorage.getItem('token');
 
-    const getData = () => {
-        axios.get('http://localhost:8080/api/clients/4')
+    useEffect(() => {
+
+        axios.get('https://homebankingapp.onrender.com/api/clients/current', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
             .then(response => {
-                console.log();
-                console.log(response.data.cards);
                 setData(response.data.cards);
             })
             .catch(error => {
                 console.log(error);
+                if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+                    dispatch(logout());
+                    localStorage.clear();
+                    setLoginOrRegister(true);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Session expired',
+                        text: 'Your session has expired. Please log in again.',
+                    });
+                }
             });
-    }
-
-    useEffect(() => {
-        getData();
     }, [])
 
     return (
@@ -31,7 +41,6 @@ const Cards = () => {
                 <article className='flex flex-wrap md:flex-row justify-center content-center justify-evenly pt-20 flex-grow'>
                     <div className='flex flex-col gap-6 py-10'>
                         <h2 className='text-2xl text-white font-bold'>Credit</h2>
-                        {console.log(data.cards)}
                         {
                             data.length > 0 ?
                                 (
