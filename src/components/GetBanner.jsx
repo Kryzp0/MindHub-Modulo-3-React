@@ -2,7 +2,7 @@ import React from 'react'
 import { Banner, Button } from "flowbite-react";
 import { Link } from 'react-router-dom';
 
-const GetBanner = ({ type, request,linkTo,createAccount }) => {
+const GetBanner = ({ type, request,linkTo }) => {
     return (
         <Banner className='flex justify-center py-6'>
             <div className="flex w-[90%] flex-col justify-between rounded-lg border p-4 shadow-sm border-gray-600 bg-gray-700 md:flex-row">
@@ -19,7 +19,7 @@ const GetBanner = ({ type, request,linkTo,createAccount }) => {
                 </div>
                 <div className="flex shrink-0 items-center">
                     <Link to={linkTo}>
-                        <Button onClick={createAccount}>{"Get " + type}</Button>
+                        <Button>{"Get " + type}</Button>
                     </Link>
                 </div>
             </div>

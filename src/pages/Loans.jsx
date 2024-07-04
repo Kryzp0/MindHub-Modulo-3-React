@@ -8,28 +8,28 @@ import axios from 'axios';
 const Loans = () => {
 
   const [data, setData] = useState([]);
-  const token = localStorage.getItem('token');
 
-  useEffect(() => {
-
-    axios.get('https://homebankingapp.onrender.com/api/clients/current', {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
+  const getData = () => {
+    axios.get('http://localhost:8080/api/clients/4')
       .then(response => {
+        console.log();
+        console.log(response.data.loans);
         setData(response.data.loans);
       })
       .catch(error => {
         console.log(error);
       });
+  }
+
+  useEffect(() => {
+    getData();
   }, [])
 
   return (
     <>
       <Title title="Your Loans" />
       <section className='flex flex-col items-center gap-4'>
-        <div className='flex flex-wrap gap-6 pt-[120px] justify-center'>
+        <div className='flex flex-wrap gap-6 pt-[120px]'>
           {
             data.length > 0 ?
               (
