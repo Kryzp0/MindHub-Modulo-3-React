@@ -1,44 +1,98 @@
-import React, { useEffect, useState } from 'react'
-import Title from '../components/Title'
+import React, { useEffect, useState } from 'react';
+import Title from '../components/Title';
 import { Carousel } from "flowbite-react";
 import Account from '../components/Account';
-import GetBanner from '../components/GetBanner';
+import GetAccount from '../components/GetAccount';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import Swal from 'sweetalert2'; 
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 const Accounts = () => {
-    const [data, setData] = useState([]);
 
-    const getData = () => {
-        axios.get('http://localhost:8080/api/clients/4')
+    const dispatch = useDispatch();
+    const token = useSelector(store => store.loginReducer.token) || localStorage.getItem('token');
+    const [data, setData] = useState([]);
+    const [accounts, setAccounts] = useState([]);
+
+    useEffect(() => {
+        
+        axios.get('https://homebankingapp.onrender.com/api/clients/current', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
             .then(response => {
-                console.log(response.data.accounts);
-                setData(response.data.accounts);
+                setData(response.data);
+                setAccounts(response.data.accounts);
             })
             .catch(error => {
                 console.log(error);
+                if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+                    dispatch(logout());
+                    localStorage.clear();
+                    setLoginOrRegister(true);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Session expired',
+                        text: 'Your session has expired. Please log in again.',
+                    });
+                }
             });
-    }
-
-    useEffect(() => {
-        getData();
     }, [])
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const result = await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, apply it!'
+        });
+
+        if (result.isConfirmed) {
+            try {
+                await axios.post('https://homebankingapp.onrender.com/api/clients/current/accounts/',{}, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                Swal.fire({
+                    title: 'Applied!',
+                    text: 'Your account has been applied successfully.',
+                    icon: 'success'
+                });
+                navigate('/accounts');
+            } catch (error) {
+                const errorMessage = error.response.data;
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: errorMessage,
+                  });
+                console.log(error);
+            }
+        }
+    };
 
     return (
         <>
-            <Title title="Welcome, Melba!" />
+            <Title title={"Welcome, "+data.name+"!"} />
             <section className='flex flex-col items-center gap-4'>
-                <div className='flex flex-wrap gap-6 pt-[120px]'>
-                    {console.log(data)}
+                <div className='flex flex-wrap gap-6 pt-[120px] justify-center'>
                     {
-                        data.length > 0 ?
+                        accounts.length > 0 ?
                             (
-                                data.map(account =>
-                                    (<Account key={account.id} number={account.number} balance={account.balance} creationDate={account.reationDate} />))
+                                accounts.map(account =>
+                                    (<Account key={account.id} id={account.id} number={account.number} balance={account.balance} creationDate={account.creationDate} />))
                             ) : (<p className='text-white text-lg'>No accounts available.</p>)
                     }
                 </div>
-                <GetBanner type={"account"} request={"create"} linkTo={"/accounts"} />
+                <GetAccount handleSubmit={handleSubmit} type={"account"} request={"create"} />
             </section>
             <div className="h-44 p-6">
                 <Carousel>
